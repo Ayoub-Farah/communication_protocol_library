@@ -25,7 +25,7 @@
  */
 
 
-#include "../src/sync.h"
+#include "sync.h"
 
 #include "SyncCommunication.h"
 

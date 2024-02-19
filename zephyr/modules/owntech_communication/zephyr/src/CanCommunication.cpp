@@ -25,7 +25,7 @@
 
 
 #include "CanCommunication.h"
-#include "../src/data_objects.h"
+#include "data_objects.h"
 
 
 /////

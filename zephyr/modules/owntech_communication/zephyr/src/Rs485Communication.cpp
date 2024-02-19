@@ -23,7 +23,7 @@
  * @author Ayoub Farah Hassan <ayoub.farah-hassan@laas.fr>
  */
 
-#include "../src/Rs485.h"
+#include "Rs485.h"
 #include "Rs485Communication.h"
 
 Rs485Communication rs485Communication;
