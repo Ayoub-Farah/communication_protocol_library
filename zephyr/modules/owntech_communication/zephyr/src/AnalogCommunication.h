@@ -17,6 +17,12 @@
  * SPDX-License-Identifier: LGLPV2.1
  */
 
+/**
+ * @date   2024
+ *
+ * @author Ayoub Farah Hassan <ayoub.farah-hassan@laas.fr>
+ */
+
 #ifndef ANALOGCOMMUNICATION_H_
 #define ANALOGCOMMUNICATION_H_
 

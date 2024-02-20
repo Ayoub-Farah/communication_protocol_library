@@ -18,7 +18,7 @@
  */
 
 /**
- * @date   2023
+ * @date   2023-2024
  *
  * @author Luiz Villa <luiz.villa@laas.fr>
  * @author Ayoub Farah Hassan <ayoub.farah-hassan@laas.fr>
@@ -39,7 +39,15 @@ class SyncCommunication
 {
 
 public:
+
+	/**
+	 * @brief initialization synchronization as MASTER, the master send the synchronization pulsle.
+	*/
 	static void initMaster();
+
+	/**
+	 * @brief initialization synchronization as SLAVE, the slave receive the synchronization pulsle.
+	*/
 	static void initSlave();
 };
 

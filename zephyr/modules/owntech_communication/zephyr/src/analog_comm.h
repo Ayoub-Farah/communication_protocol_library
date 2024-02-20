@@ -26,12 +26,12 @@
 #ifndef ANALOG_COMM_H_
 #define ANALOG_COMM_H_
 
-#include <zephyr/zephyr.h>
+#include <zephyr/kernel.h>
 #include "arm_math.h"
 
 
 /**
- * @brief    Initilializes the analog communication 
+ * @brief    Initilializes the analog communication
  */
 void analog_comm_init();
 

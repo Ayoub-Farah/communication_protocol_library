@@ -58,12 +58,12 @@ void Rs485Communication::startTransmission()
     serial_tx_on();
 }
 
-void Rs485Communication::communicationStart()
+void Rs485Communication::turnOnCommunication()
 {
     serial_start();
 }
 
-void Rs485Communication::communicationStop()
+void Rs485Communication::turnOffCommunication()
 {
     serial_stop();
 }

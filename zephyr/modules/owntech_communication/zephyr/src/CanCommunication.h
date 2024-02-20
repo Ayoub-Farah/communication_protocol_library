@@ -18,7 +18,7 @@
  */
 
 /**
- * @date   2022
+ * @date   2022-2024
  *
  * @author Clément Foucher <clement.foucher@laas.fr>
  */
@@ -38,18 +38,75 @@ class CanCommunication
 {
 
 public:
-	static uint16_t  getCanNodeAddr();
-	static bool      getCtrlEnable();
-	static uint16_t getCtrlReference();
-	static uint16_t  getBroadcastPeriod();
-	static uint16_t  getControlPeriod();
+	/**
+	 * @brief Get the CAN node address.
+	 *
+	 * @return The CAN node address.
+	 */
+	static uint16_t getCanNodeAddr();
 
+	/**
+	 * @brief Get the control enable status.
+	 *
+	 * @return True if control is enabled, false otherwise.
+	 */
+	static bool getCtrlEnable();
+
+	/**
+	 * @brief Get the control reference value.
+	 *
+	 * @return The control reference value.
+	 */
+	static float32_t getCtrlReference();
+
+	/**
+	 * @brief Get the broadcast period.
+	 *
+	 * @return The broadcast period in 100 ms units.
+	 */
+	static uint16_t getBroadcastPeriod();
+
+	/**
+	 * @brief Get the control period.
+	 *
+	 * @return The control period in 100 ms units.
+	 */
+	static uint16_t getControlPeriod();
+
+	/**
+	 * @brief Set the CAN node address.
+	 *
+	 * @param addr The CAN node address to set.
+	 */
 	static void setCanNodeAddr(uint16_t addr);
-	static void setCtrlEnable(bool enable);
-	static void setCtrlReference(uint16_t reference);
-	static void setBroadcastPeriod(uint16_t time_100_ms);
-	static void setControlPeriod(uint16_t time_100_ms);
 
+	/**
+	 * @brief Set the control enable status.
+	 *
+	 * @param enable True to enable control, false to disable it.
+	 */
+	static void setCtrlEnable(bool enable);
+
+	/**
+	 * @brief Set the control reference value.
+	 *
+	 * @param reference The control reference value to set.
+	 */
+	static void setCtrlReference(float32_t reference);
+
+	/**
+	 * @brief Set the broadcast period.
+	 *
+	 * @param time_100_ms The broadcast period (in multiple of 100 ms) to set.
+	 */
+	static void setBroadcastPeriod(uint16_t time_100_ms);
+
+	/**
+	 * @brief Set the control period.
+	 *
+	 * @param time_100_ms The control period (in multiple of 100 ms) to set.
+	 */
+	static void setControlPeriod(uint16_t time_100_ms);
 };
 
 
