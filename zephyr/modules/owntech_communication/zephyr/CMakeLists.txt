@@ -4,8 +4,12 @@ if(CONFIG_OWNTECH_COMMUNICATION)
 
   # Define the current folder as a Zephyr library
   zephyr_library()
+  
+  zephyr_library_sources(
+    public_api/CommunicationAPI.cpp
+  )
 
-  if (CONFIG_OWNTECH_COMMUNICATION_ENABLE_RS485)
+  if (CONFIG_OWNTECH_COMMUNICATION_ENABLE_ANALOG)
     zephyr_library_sources(
       src/AnalogCommunication.cpp
       src/analog_comm.cpp
