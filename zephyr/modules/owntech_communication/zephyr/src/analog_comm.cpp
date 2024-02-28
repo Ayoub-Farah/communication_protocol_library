@@ -30,8 +30,12 @@
 #include "DataAPI.h"
 #include "SpinAPI.h"
 
-
+// LL drivers
 #include "stm32_ll_gpio.h"
+
+#define ADC_NUM 2
+#define DAC_NUM 1
+#define DAC_CHAN 1
 
 void analog_comm_init()
 {
@@ -40,9 +44,9 @@ void analog_comm_init()
     LL_GPIO_SetPinOutputType(GPIOC, LL_GPIO_PIN_4, LL_GPIO_OUTPUT_PUSHPULL);
     LL_GPIO_SetPinPull      (GPIOC, LL_GPIO_PIN_4, LL_GPIO_PULL_NO);
 
-    data.enableShieldChannel(2, ANALOG_COMM);
-    spin.dac.initConstValue(2);
-    spin.dac.setConstValue(2, 1, 0);
+    data.enableShieldChannel(ADC_NUM, ANALOG_COMM);
+    spin.dac.initConstValue(ADC_NUM);
+    spin.dac.setConstValue(DAC_NUM, DAC_CHAN, 0);
 }
 
 float32_t analog_comm_get_value()
@@ -53,5 +57,5 @@ float32_t analog_comm_get_value()
 
 void analog_comm_set_value(uint32_t analog_comm_value)
 {
-    spin.dac.setConstValue(2, 1, analog_comm_value);
+    spin.dac.setConstValue(DAC_NUM, DAC_CHAN, analog_comm_value);
 }
