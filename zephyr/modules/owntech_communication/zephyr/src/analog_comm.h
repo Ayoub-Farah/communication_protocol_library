@@ -36,11 +36,6 @@
 void analog_comm_init();
 
 /**
- * @brief    Triggers an analog communication via software
- */
-void analog_comm_trigger();
-
-/**
  * @brief    Converts the values of the analog communication bus via ADC 4
  *
  * @return  a foat32_t value for analog communication bus

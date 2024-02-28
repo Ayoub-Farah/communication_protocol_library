@@ -31,29 +31,27 @@
 #include "SpinAPI.h"
 
 
-// OwnTech peripherals used in the analog communication
-uint8_t analog_comm_adc_number = 4;
-uint8_t analog_comm_dac_number = 2;
-uint8_t analog_comm_dac_channel = 1;
-
+#include "stm32_ll_gpio.h"
 
 void analog_comm_init()
 {
-    data.enableShieldChannel(4, ANALOG_COMM);
-    spin.dac.initConstValue(analog_comm_dac_number);
-}
+    LL_GPIO_SetPinMode      (GPIOC, LL_GPIO_PIN_4, LL_GPIO_MODE_ANALOG);
+    LL_GPIO_SetPinSpeed     (GPIOC, LL_GPIO_PIN_4, LL_GPIO_SPEED_FREQ_VERY_HIGH);
+    LL_GPIO_SetPinOutputType(GPIOC, LL_GPIO_PIN_4, LL_GPIO_OUTPUT_PUSHPULL);
+    LL_GPIO_SetPinPull      (GPIOC, LL_GPIO_PIN_4, LL_GPIO_PULL_NO);
 
-void analog_comm_trigger()
-{
-    spin.adc.triggerSoftwareConversion(analog_comm_adc_number, 1);
+    data.enableShieldChannel(2, ANALOG_COMM);
+    spin.dac.initConstValue(2);
+    spin.dac.setConstValue(2, 1, 0);
 }
 
 float32_t analog_comm_get_value()
 {
-	return data.getLatest(ANALOG_COMM);
+	float32_t ret =  data.getLatest(ANALOG_COMM);
+    return ret;
 }
 
 void analog_comm_set_value(uint32_t analog_comm_value)
 {
-    spin.dac.setConstValue(analog_comm_dac_number, analog_comm_adc_number, analog_comm_value);
+    spin.dac.setConstValue(2, 1, analog_comm_value);
 }

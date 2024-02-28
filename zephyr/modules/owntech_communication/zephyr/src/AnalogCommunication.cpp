@@ -31,11 +31,6 @@ void AnalogCommunication::init()
     analog_comm_init();
 }
 
-void AnalogCommunication::triggerAnalogComm()
-{
-    analog_comm_trigger();
-}
-
 float32_t AnalogCommunication::getAnalogCommValue()
 {
     return analog_comm_get_value();

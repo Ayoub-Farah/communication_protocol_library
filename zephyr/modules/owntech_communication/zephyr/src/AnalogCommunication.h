@@ -45,11 +45,6 @@ public:
 	static void init();
 
 	/**
-	 * @brief Trigger the ADC for the analog communication
-	*/
-	static void triggerAnalogComm();
-
-	/**
 	 * @brief Get the analog value
 	 *
 	 * @return Analog value (A value between 0 and 4096)
