@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 LAAS-CNRS
+ * Copyright (c) 2024 LAAS-CNRS
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU Lesser General Public License as published by
@@ -18,9 +18,10 @@
  */
 
 /**
- * @date   2022
+ * @date   2024
  *
  * @author Luiz Villa <luiz.villa@laas.fr>
+ * @author Ayoub Farah Hassan <ayoub.farah-hassan@laas.fr>
  */
 
 
@@ -39,12 +40,16 @@
 
 void analog_comm_init()
 {
+    /* Initialize the GPIO PC4 (pin number 35) to analog mode
+       to use the ADC */
     LL_GPIO_SetPinMode      (GPIOC, LL_GPIO_PIN_4, LL_GPIO_MODE_ANALOG);
     LL_GPIO_SetPinSpeed     (GPIOC, LL_GPIO_PIN_4, LL_GPIO_SPEED_FREQ_VERY_HIGH);
     LL_GPIO_SetPinOutputType(GPIOC, LL_GPIO_PIN_4, LL_GPIO_OUTPUT_PUSHPULL);
     LL_GPIO_SetPinPull      (GPIOC, LL_GPIO_PIN_4, LL_GPIO_PULL_NO);
 
     data.enableShieldChannel(ADC_NUM, ANALOG_COMM);
+
+    /* Initialize the DAC */
     spin.dac.initConstValue(ADC_NUM);
     spin.dac.setConstValue(DAC_NUM, DAC_CHAN, 0);
 }

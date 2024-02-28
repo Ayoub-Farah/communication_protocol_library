@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 LAAS-CNRS
+ * Copyright (c) 2024 LAAS-CNRS
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU Lesser General Public License as published by
@@ -15,6 +15,12 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * SPDX-License-Identifier: LGLPV2.1
+ */
+
+/**
+ * @date   2024
+ *
+ * @author Ayoub Farah Hassan <ayoub.farah-hassan@laas.fr>
  */
 
 #include "analog_comm.h"
