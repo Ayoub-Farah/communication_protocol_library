@@ -32,9 +32,7 @@
 #include "TaskAPI.h"
 #include "TwistAPI.h"
 #include "DataAPI.h"
-#include "Rs485Communication.h"
-#include "SyncCommunication.h"
-#include "CanCommunication.h"
+#include "CommunicationAPI.h"
 
 
 #include "zephyr/console/console.h"

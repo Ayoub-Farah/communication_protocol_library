@@ -63,23 +63,23 @@ void sync_slave_init()
 	// HRTIM_SCIN pin configuration
 	LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
 
-	if(spin.version.getBoardVersion() != TWIST_v_1_1_4)
-	{
-	LL_GPIO_SetPinMode      (GPIOB, LL_GPIO_PIN_6, LL_GPIO_MODE_ALTERNATE);
-	LL_GPIO_SetPinSpeed     (GPIOB, LL_GPIO_PIN_6, LL_GPIO_SPEED_FREQ_VERY_HIGH);
-	LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_6, LL_GPIO_OUTPUT_PUSHPULL);
-	LL_GPIO_SetPinPull      (GPIOB, LL_GPIO_PIN_6, LL_GPIO_PULL_NO);
-	LL_GPIO_SetAFPin_0_7    (GPIOB, LL_GPIO_PIN_6, LL_GPIO_AF_12);
-	}
-	else
-	{
+	// if(spin.version.getBoardVersion() != TWIST_v_1_1_4)
+	// {
+	// LL_GPIO_SetPinMode      (GPIOB, LL_GPIO_PIN_6, LL_GPIO_MODE_ALTERNATE);
+	// LL_GPIO_SetPinSpeed     (GPIOB, LL_GPIO_PIN_6, LL_GPIO_SPEED_FREQ_VERY_HIGH);
+	// LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_6, LL_GPIO_OUTPUT_PUSHPULL);
+	// LL_GPIO_SetPinPull      (GPIOB, LL_GPIO_PIN_6, LL_GPIO_PULL_NO);
+	// LL_GPIO_SetAFPin_0_7    (GPIOB, LL_GPIO_PIN_6, LL_GPIO_AF_12);
+	// }
+	// else
+	// {
 	LL_GPIO_SetPinMode      (GPIOB, LL_GPIO_PIN_2, LL_GPIO_MODE_ALTERNATE);
 	LL_GPIO_SetPinSpeed     (GPIOB, LL_GPIO_PIN_2, LL_GPIO_SPEED_FREQ_VERY_HIGH);
 	LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_2, LL_GPIO_OUTPUT_PUSHPULL);
 	LL_GPIO_SetPinPull      (GPIOB, LL_GPIO_PIN_2, LL_GPIO_PULL_NO);
 	LL_GPIO_SetAFPin_0_7    (GPIOB, LL_GPIO_PIN_2, LL_GPIO_AF_13);
 
-	}
+	// }
 
 
 	LL_HRTIM_TIM_CounterEnable(HRTIM1, LL_HRTIM_TIMER_MASTER);

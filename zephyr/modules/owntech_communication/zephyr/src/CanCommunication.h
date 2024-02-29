@@ -57,7 +57,7 @@ public:
 	 *
 	 * @return The control reference value.
 	 */
-	static float32_t getCtrlReference();
+	static uint16_t getCtrlReference();
 
 	/**
 	 * @brief Get the broadcast period.
@@ -92,7 +92,7 @@ public:
 	 *
 	 * @param reference The control reference value to set.
 	 */
-	static void setCtrlReference(float32_t reference);
+	static void setCtrlReference(uint16_t reference);
 
 	/**
 	 * @brief Set the broadcast period.
