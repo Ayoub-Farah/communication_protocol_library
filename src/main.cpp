@@ -33,6 +33,7 @@
 #include "TaskAPI.h"
 #include "TwistAPI.h"
 #include "DataAPI.h"
+#include "CommunicationAPI.h"
 
 #include "test_bench_comm_protocol.h"
 
@@ -118,12 +119,12 @@ void setup_routine()
     twist.initLegBuck(LEG1);
     twist.initLegBuck(LEG2);
 
-    syncCommunication.initSlave(); // start the synchronisation
+    communication.syncCommunication.initSlave(); // start the synchronisation
     data.enableAcquisition(2, 35); // enable the analog measurement
     data.triggerAcquisition(2);     // starts the analog measurement
-    canCommunication.setCanNodeAddr(CAN_SLAVE_ADDR);
-    canCommunication.setBroadcastPeriod(10);
-    canCommunication.setControlPeriod(10);
+    communication.canCommunication.setCanNodeAddr(CAN_SLAVE_ADDR);
+    communication.canCommunication.setBroadcastPeriod(10);
+    communication.canCommunication.setControlPeriod(10);
 
 
     spin.gpio.configurePin(LEG1_CAPA_DGND, OUTPUT);
@@ -168,7 +169,7 @@ void setup_routine()
     task.startBackground(CommTask_num);
     task.startCritical();
 
-    rs485Communication.configure(buffer_tx, buffer_rx, sizeof(ConsigneStruct_t), slave_reception_function, 10625000, true); // custom configuration for RS485
+    communication.rs485Communication.configure(buffer_tx, buffer_rx, sizeof(ConsigneStruct_t), slave_reception_function, 10625000, true); // custom configuration for RS485
 
 }
 
@@ -301,13 +302,12 @@ void loop_control_task()
 
 
     /* Analog communication value */
-    local_analog_value = data.getLatest(2, 35);
-    data.triggerAcquisition(2);
+    local_analog_value = communication.analogCommunication.getAnalogCommValue();
 
     ctrl_slave_counter++; //counter for the slave function
 
-    can_test_ctrl_enable = canCommunication.getCtrlEnable();
-    can_test_reference_value = canCommunication.getCtrlReference();
+    can_test_ctrl_enable = communication.canCommunication.getCtrlEnable();
+    can_test_reference_value = communication.canCommunication.getCtrlReference();
 
 
     switch(mode){
