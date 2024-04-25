@@ -225,6 +225,9 @@ void loop_application_task()
                                         power_leg_settings[LEG1].settings[3],
                                         power_leg_settings[LEG1].settings[4]);
             printk("%f:", power_leg_settings[LEG1].duty_cycle);
+            printk("%f:", power_leg_settings[LEG1].phase_shift);
+            printk("%f:", power_leg_settings[LEG1].dead_time_rise);
+            printk("%f:", power_leg_settings[LEG1].dead_time_fall);
             printk("%f:", power_leg_settings[LEG1].reference_value);
             printk("%s:", power_leg_settings[LEG1].tracking_var_name);
             printk("%f:", power_leg_settings[LEG1].tracking_variable[0]);
@@ -234,6 +237,9 @@ void loop_application_task()
                                         power_leg_settings[LEG2].settings[3],
                                         power_leg_settings[LEG2].settings[4]);
             printk("%f:", power_leg_settings[LEG2].duty_cycle);
+            printk("%f:", power_leg_settings[LEG2].phase_shift);
+            printk("%f:", power_leg_settings[LEG2].dead_time_rise);
+            printk("%f:", power_leg_settings[LEG2].dead_time_fall);
             printk("%f:", power_leg_settings[LEG2].reference_value);
             printk("%s:", power_leg_settings[LEG2].tracking_var_name);
             printk("%f:", power_leg_settings[LEG2].tracking_variable[0]);
