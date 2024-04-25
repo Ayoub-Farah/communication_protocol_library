@@ -339,6 +339,7 @@ void loop_control_task()
                 power_leg_settings[LEG2].duty_cycle = opalib_control_leg1_pid_calculation(power_leg_settings[LEG2].reference_value , tracking_vars[LEG2].address[0]);
 
             if(power_leg_settings[LEG1].settings[BOOL_LEG]){
+                twist.setLegDeadTime(LEG1, power_leg_settings[LEG1].dead_time_rise, power_leg_settings[LEG1].dead_time_fall);
                 if(power_leg_settings[LEG1].settings[BOOL_BOOST]){
                     twist.setLegDutyCycle(LEG1, (1-power_leg_settings[LEG1].duty_cycle) ); //inverses the convention of the leg in case of changing from buck to boost
                 } else {
@@ -347,6 +348,8 @@ void loop_control_task()
             }
 
             if(power_leg_settings[LEG2].settings[BOOL_LEG]){
+                twist.setLegDeadTime(LEG2, power_leg_settings[LEG2].dead_time_rise, power_leg_settings[LEG2].dead_time_fall);
+                twist.setLegPhaseShift(LEG2, power_leg_settings[LEG2].phase_shift);
                 if(power_leg_settings[LEG2].settings[BOOL_BOOST]){
                     twist.setLegDutyCycle(LEG2, (1-power_leg_settings[LEG2].duty_cycle) ); //inverses the convention of the leg in case of changing from buck to boost
                 }else{

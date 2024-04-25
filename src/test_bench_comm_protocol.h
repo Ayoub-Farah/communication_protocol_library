@@ -73,6 +73,7 @@ typedef enum
 
 extern tester_states_t mode;
 
+
 /**
  * @brief Structure representing tracking variables and their information.
  *
@@ -96,6 +97,9 @@ typedef struct {
     const char *tracking_var_name;  /**< Name of the tracking variable */
     float32_t reference_value;      /**< Reference value */
     float32_t duty_cycle;           /**< Duty cycle value */
+    float32_t phase_shift;           /**< Duty cycle value */
+    float32_t dead_time_rise;           /**< Duty cycle value */
+    float32_t dead_time_fall;           /**< Duty cycle value */
 } PowerLegSettings;
 
 /**
