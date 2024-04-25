@@ -51,8 +51,8 @@ TrackingVariables tracking_vars[] = {
 
 PowerLegSettings power_leg_settings[] = {
     //   LEG_OFF      ,   CAPA_OFF      , DRIVER_OFF      ,  BUCK_MODE_ON,  BOOST_MODE_ON
-    {{BOOL_SETTING_OFF, BOOL_SETTING_OFF, BOOL_SETTING_OFF,  BOOL_SETTING_OFF,  BOOL_SETTING_OFF}, {LEG1_CAPA_DGND, LEG1_DRIVER_SWITCH},  &V1_low_value, "V1", reference_value, 0.1},
-    {{BOOL_SETTING_OFF, BOOL_SETTING_OFF, BOOL_SETTING_OFF,  BOOL_SETTING_OFF,  BOOL_SETTING_OFF}, {LEG2_CAPA_DGND, LEG2_DRIVER_SWITCH},  &V2_low_value, "V2",reference_value, 0.1}
+    {{BOOL_SETTING_OFF, BOOL_SETTING_OFF, BOOL_SETTING_OFF,  BOOL_SETTING_OFF,  BOOL_SETTING_OFF}, {LEG1_CAPA_DGND, LEG1_DRIVER_SWITCH},  &V1_low_value, "V1", reference_value, 0.1, 0, 200, 200},
+    {{BOOL_SETTING_OFF, BOOL_SETTING_OFF, BOOL_SETTING_OFF,  BOOL_SETTING_OFF,  BOOL_SETTING_OFF}, {LEG2_CAPA_DGND, LEG2_DRIVER_SWITCH},  &V2_low_value, "V2", reference_value, 0.1, 0, 200, 200}
 };
 
 cmdToSettings_t power_settings[] = {
@@ -63,6 +63,9 @@ cmdToSettings_t power_settings[] = {
     {"_t", boolSettingsHandler},
     {"_r", referenceHandler},
     {"_d", dutyHandler},
+    {"_p", phaseHandler},
+    {"_dtr", deadTimeRiseHandler},
+    {"_dtf", deadTimeFallHandler},
 };
 
 cmdToState_t default_commands[] = {
@@ -190,6 +193,47 @@ void dutyHandler(uint8_t power_leg, uint8_t setting_position) {
     }
 }
 
+void phaseHandler(uint8_t power_leg, uint8_t setting_position) {
+    if (strncmp(bufferstr, "_LEG1_p_", 8) == 0 || strncmp(bufferstr, "_LEG2_p_", 8) == 0) {
+        // Extract the phase shift value from the protocol message
+        float32_t phase_shift = atof(bufferstr + 9);
+        power_leg_settings[power_leg].phase_shift = phase_shift;
+    } else {
+        printk("Invalid protocol format: %s\n", bufferstr);
+    }
+}
+
+void deadTimeRiseHandler(uint8_t power_leg, uint8_t setting_position) {
+    if (strncmp(bufferstr, "_LEG1_dtr_", 8) == 0 || strncmp(bufferstr, "_LEG2_dtr_", 8) == 0) {
+        // Extract the dead time rise value from the protocol message
+        float32_t dead_time_rise = atof(bufferstr + 9);
+
+        // Check if the dead time rise value is not negative
+        if (dead_time_rise < 0) {
+            power_leg_settings[power_leg].dead_time_rise = dead_time_rise;
+        } else {
+            printk("Invalid dead time rise value: %.5f\n", dead_time_rise);
+        }
+    } else {
+        printk("Invalid protocol format: %s\n", bufferstr);
+    }
+}
+
+void deadTimeRiseHandler(uint8_t power_leg, uint8_t setting_position) {
+    if (strncmp(bufferstr, "_LEG1_dtf_", 8) == 0 || strncmp(bufferstr, "_LEG2_dtf_", 8) == 0) {
+        // Extract the dead time fall value from the protocol message
+        float32_t dead_time_fall = atof(bufferstr + 9);
+
+        // Check if the dead time fall value is not negative
+        if (dead_time_fall < 0) {
+            power_leg_settings[power_leg].dead_time_fall = dead_time_fall;
+        } else {
+            printk("Invalid dead time fall value: %.5f\n", dead_time_fall);
+        }
+    } else {
+        printk("Invalid protocol format: %s\n", bufferstr);
+    }
+}
 
 void referenceHandler(uint8_t power_leg, uint8_t setting_position){
     const char *underscore1 = strchr(bufferstr + 6, '_');
