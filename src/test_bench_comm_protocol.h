@@ -36,7 +36,7 @@
 
 
 #include "zephyr/console/console.h"
-#include "zephyr/zephyr.h"
+#include "zephyr/kernel.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -140,7 +140,7 @@ typedef struct {
 
 extern TrackingVariables tracking_vars[6];
 extern PowerLegSettings power_leg_settings[2];
-extern cmdToSettings_t power_settings[7];
+extern cmdToSettings_t power_settings[10];
 extern cmdToState_t default_commands[3];
 
 extern tester_states_t mode;
@@ -241,6 +241,41 @@ void boolSettingsHandler(uint8_t power_leg, uint8_t setting_position);
  * @param setting_position The position of the duty cycle setting in the power leg settings array.
  */
 void dutyHandler(uint8_t power_leg, uint8_t setting_position);
+
+
+/**
+ * @brief Handles phase shift settings for a power leg.
+ *
+ * This function extracts the phase shift value from the received command and updates the corresponding power leg settings.
+ * The phase shift value is expected to be in the format "_LEGX_p_XXXXX", where XXXXX represents the phase shift value.
+ *
+ * @param power_leg The index of the power leg.
+ * @param setting_position The position of the phase shift setting in the power leg settings array.
+ */
+void phaseHandler(uint8_t power_leg, uint8_t setting_position);
+
+
+/**
+ * @brief Handles rising dead time settings for a power leg.
+ *
+ * This function extracts the rising dead time value from the received command and updates the corresponding power leg settings.
+ * The rising dead time value is expected to be in the format "_LEGX_dtr_XXXXX", where XXXXX represents the phase shift value.
+ *
+ * @param power_leg The index of the power leg.
+ * @param setting_position The position of the phase shift setting in the power leg settings array.
+ */
+void deadTimeRiseHandler(uint8_t power_leg, uint8_t setting_position);
+
+/**
+ * @brief Handles falling dead time settings for a power leg.
+ *
+ * This function extracts the falling dead time value from the received command and updates the corresponding power leg settings.
+ * The falling dead time value is expected to be in the format "_LEGX_dtr_XXXXX", where XXXXX represents the phase shift value.
+ *
+ * @param power_leg The index of the power leg.
+ * @param setting_position The position of the phase shift setting in the power leg settings array.
+ */
+void deadTimeFallHandler(uint8_t power_leg, uint8_t setting_position);
 
 /**
  * @brief Handles reference value settings for a power leg.
