@@ -119,14 +119,6 @@ void setup_routine()
     twist.initLegBuck(LEG1);
     twist.initLegBuck(LEG2);
 
-    communication.syncCommunication.initSlave(); // start the synchronisation
-    data.enableAcquisition(2, 35); // enable the analog measurement
-    data.triggerAcquisition(2);     // starts the analog measurement
-    communication.canCommunication.setCanNodeAddr(CAN_SLAVE_ADDR);
-    communication.canCommunication.setBroadcastPeriod(10);
-    communication.canCommunication.setControlPeriod(10);
-
-
     spin.gpio.configurePin(LEG1_CAPA_DGND, OUTPUT);
     spin.gpio.configurePin(LEG2_CAPA_DGND, OUTPUT);
     spin.gpio.configurePin(LEG1_DRIVER_SWITCH, OUTPUT);

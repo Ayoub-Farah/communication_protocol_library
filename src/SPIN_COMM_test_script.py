@@ -38,46 +38,45 @@ Twist = Twist_Device(twist_port= Twist_ports[0])
 
 message = Twist.sendCommand("IDLE")
 print(message)
-message = Twist.sendCommand("POWER_ON")
+message = Twist.sendCommand("DUTY", "LEG1", 0.5)
 print(message)
-message = Twist.sendCommand("POWER_OFF")
-print(message)
-message = Twist.sendCommand("DUTY", "LEG1", 0.01)
-print(message)
+
 message = Twist.sendCommand("CAPA", "LEG1", "ON")
 print(message)
 message = Twist.sendCommand( "BUCK", "LEG2", "ON")
 print(message)
 message = Twist.sendCommand( "BOOST", "LEG1", "ON")
 print(message)
+
 message = Twist.sendCommand("LEG","LEG2","ON")
 print(message)
 message = Twist.sendCommand("DRIVER","LEG2","ON")
 print(message)
 
-
+message = Twist.sendCommand("POWER_ON")
+print(message)
 
 #---------------REFERENCE TEST------------------------------------
-leg_to_test = "LEG1"
-reference_names = ["V1","V2","VH","I1","I2","IH"]
-reference_values = [1, 2, 3, 4, 5, 6]
+# leg_to_test = "LEG1"
+# reference_names = ["V1","V2","VH","I1","I2","IH"]
+# reference_values = [1, 2, 3, 4, 5, 6]
 
-message1 = Twist.sendCommand("IDLE")
-print(message1)
+# message1 = Twist.sendCommand("IDLE")
+# print(message1)
 
-message1 = Twist.sendCommand("DRIVER",leg_to_test,"ON")
-print(message1)
-
-
-
-for reference, reference_values in zip(reference_names, reference_values):
-    message1 = Twist.sendCommand("POWER_OFF")
-    print(message1)
-    message1 = Twist.sendCommand("REFERENCE",leg_to_test,reference,reference_values)
-    print(message1)
-    message1 = Twist.sendCommand("POWER_ON")
-    print(message1)
+# message1 = Twist.sendCommand("DRIVER",leg_to_test,"ON")
+# print(message1)
 
 
-message1 = Twist.sendCommand("IDLE")
-print(message1)
+
+# for reference, reference_values in zip(reference_names, reference_values):
+#     message1 = Twist.sendCommand("POWER_OFF")
+#     print(message1)
+#     message1 = Twist.sendCommand("REFERENCE",leg_to_test,reference,reference_values)
+#     print(message1)
+#     message1 = Twist.sendCommand("POWER_ON")
+#     print(message1)
+
+
+# message1 = Twist.sendCommand("IDLE")
+# print(message1)
