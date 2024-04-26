@@ -36,54 +36,42 @@ print(Twist_ports)
 Twist = Twist_Device(twist_port= Twist_ports[0])
 
 
-message = Twist.sendCommand("IDLE")
-print(message)
+# message = Twist.sendCommand("IDLE")
+# print(message)
 
-message = Twist.sendCommand( "BUCK", "LEG2", "ON")
-print(message)
-message = Twist.sendCommand( "BUCK", "LEG1", "ON")
-print(message)
-message = Twist.sendCommand("LEG","LEG1","ON")
-print(message)
-message = Twist.sendCommand("LEG","LEG2","ON")
-print(message)
+# message = Twist.sendCommand( "BUCK", "LEG2", "ON")
+# print(message)
+# message = Twist.sendCommand( "BUCK", "LEG1", "ON")
+# print(message)
 
-message = Twist.sendCommand("DUTY", "LEG1", 0.5)
-print(message)
-message = Twist.sendCommand("DUTY", "LEG2", 0.5)
-print(message)
+# message = Twist.sendCommand("LEG","LEG1","ON")
+# print(message)
+# message = Twist.sendCommand("LEG","LEG2","ON")
+# print(message)
 
-message = Twist.sendCommand("PHASE_SHIFT", "LEG2", 90)
+# message = Twist.sendCommand("DEAD_TIME_RISING", "LEG1", 300)
+# print(message)
+# message = Twist.sendCommand("DEAD_TIME_FALLING", "LEG1", 100)
+# print(message)
 
-message = Twist.sendCommand("DEAD_TIME_RISING", "LEG1", 300)
-print(message)
-message = Twist.sendCommand("DEAD_TIME_FALLING", "LEG1", 100)
-print(message)
+# message = Twist.sendCommand("POWER_ON")
+# print(message)
 
-message = Twist.sendCommand("POWER_ON")
-print(message)
+# message = Twist.sendCommand("DUTY", "LEG1", 0.5)
+# print(message)
+# message = Twist.sendCommand("DUTY", "LEG2", 0.5)
+# print(message)
+
+# message = Twist.sendCommand("PHASE_SHIFT", "LEG2", 180)
+
+
 
 #---------------REFERENCE TEST------------------------------------
-# leg_to_test = "LEG1"
-# reference_names = ["V1","V2","VH","I1","I2","IH"]
-# reference_values = [1, 2, 3, 4, 5, 6]
 
-# message1 = Twist.sendCommand("IDLE")
-# print(message1)
+duty_cycle = [0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 0.9]
+phase_shift = [0, 30, 60, 90, 120, 180, 220]
 
-# message1 = Twist.sendCommand("DRIVER",leg_to_test,"ON")
-# print(message1)
-
-
-
-# for reference, reference_values in zip(reference_names, reference_values):
-#     message1 = Twist.sendCommand("POWER_OFF")
-#     print(message1)
-#     message1 = Twist.sendCommand("REFERENCE",leg_to_test,reference,reference_values)
-#     print(message1)
-#     message1 = Twist.sendCommand("POWER_ON")
-#     print(message1)
-
-
-# message1 = Twist.sendCommand("IDLE")
-# print(message1)
+for duty, phase in zip(duty_cycle, phase_shift):
+  Twist.sendCommand("DUTY", "LEG1", duty)
+  Twist.sendCommand("DUTY", "LEG2", duty)
+  Twist.sendCommand("PHASE_SHIFT", "LEG2", phase)
