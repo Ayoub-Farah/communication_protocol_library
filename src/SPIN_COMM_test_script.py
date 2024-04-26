@@ -25,6 +25,7 @@ SPDX-License-Identifier: LGLPV2.1
 """
 
 import serial,  find_devices
+import time
 from Twist_Class import Twist_Device
 
 twist_vid = 0x2fe3
@@ -54,6 +55,11 @@ print(message)
 message = Twist.sendCommand("DEAD_TIME_FALLING", "LEG1", 100)
 print(message)
 
+message = Twist.sendCommand("DEAD_TIME_RISING", "LEG2", 300)
+print(message)
+message = Twist.sendCommand("DEAD_TIME_FALLING", "LEG2", 100)
+print(message)
+
 message = Twist.sendCommand("POWER_ON")
 print(message)
 
@@ -62,16 +68,34 @@ print(message)
 message = Twist.sendCommand("DUTY", "LEG2", 0.5)
 print(message)
 
-message = Twist.sendCommand("PHASE_SHIFT", "LEG2", 180)
+message = Twist.sendCommand("PHASE_SHIFT", "LEG2", 0)
+print(message)
 
+
+
+
+while True:
+
+  time.sleep(10)
+  message = Twist.sendCommand("DUTY", "LEG1", 0.55)
+  print(message)
+  time.sleep(10)
+  message = Twist.sendCommand("DUTY", "LEG1", 0.5)
+  print(message)
+  time.sleep(10)
+  message = Twist.sendCommand("PHASE_SHIFT", "LEG2", 10)
+  print(message)
+  time.sleep(10)
+  message = Twist.sendCommand("PHASE_SHIFT", "LEG2", 0)
+  print(message)
 
 
 #---------------REFERENCE TEST------------------------------------
 
-duty_cycle = [0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 0.9]
-phase_shift = [0, 30, 60, 90, 120, 180, 220]
+# duty_cycle = [0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 0.9]
+# phase_shift = [0, 30, 60, 90, 120, 180, 220]
 
-for duty, phase in zip(duty_cycle, phase_shift):
-  Twist.sendCommand("DUTY", "LEG1", duty)
-  Twist.sendCommand("DUTY", "LEG2", duty)
-  Twist.sendCommand("PHASE_SHIFT", "LEG2", phase)
+# for duty, phase in zip(duty_cycle, phase_shift):
+#   Twist.sendCommand("DUTY", "LEG1", duty)
+#   Twist.sendCommand("DUTY", "LEG2", duty)
+#   Twist.sendCommand("PHASE_SHIFT", "LEG2", phase)
