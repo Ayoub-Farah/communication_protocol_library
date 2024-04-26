@@ -38,19 +38,26 @@ Twist = Twist_Device(twist_port= Twist_ports[0])
 
 message = Twist.sendCommand("IDLE")
 print(message)
-message = Twist.sendCommand("DUTY", "LEG1", 0.5)
-print(message)
 
-message = Twist.sendCommand("CAPA", "LEG1", "ON")
-print(message)
 message = Twist.sendCommand( "BUCK", "LEG2", "ON")
 print(message)
-message = Twist.sendCommand( "BOOST", "LEG1", "ON")
+message = Twist.sendCommand( "BUCK", "LEG1", "ON")
 print(message)
-
+message = Twist.sendCommand("LEG","LEG1","ON")
+print(message)
 message = Twist.sendCommand("LEG","LEG2","ON")
 print(message)
-message = Twist.sendCommand("DRIVER","LEG2","ON")
+
+message = Twist.sendCommand("DUTY", "LEG1", 0.5)
+print(message)
+message = Twist.sendCommand("DUTY", "LEG2", 0.5)
+print(message)
+
+message = Twist.sendCommand("PHASE_SHIFT", "LEG2", 90)
+
+message = Twist.sendCommand("DEAD_TIME_RISING", "LEG1", 300)
+print(message)
+message = Twist.sendCommand("DEAD_TIME_FALLING", "LEG1", 100)
 print(message)
 
 message = Twist.sendCommand("POWER_ON")

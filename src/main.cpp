@@ -124,29 +124,6 @@ void setup_routine()
     spin.gpio.configurePin(LEG1_DRIVER_SWITCH, OUTPUT);
     spin.gpio.configurePin(LEG2_DRIVER_SWITCH, OUTPUT);
 
-
-    // float32_t GV1 = 0.044301359147286994;
-    // float32_t OV1 = -89.8291125470221;
-    // float32_t GV2 = 0.043891466731813246;
-    // float32_t OV2 = -89.01321095039089;
-    // float32_t GVH = 0.029777494874229947;
-    // float32_t OVH = 0.12805533844297656;
-
-    // float32_t GI1 = 0.005510045850270965;
-    // float32_t OI1 = -11.298753103344417;
-    // float32_t GI2 = 0.005569903739753797;
-    // float32_t OI2 = -11.47851441455354;
-    // float32_t GIH = 0.0052774398156665;
-    // float32_t OIH = -10.864400298536168;
-
-    // data.setParameters(V1_LOW, GV1, OV1);
-    // data.setParameters(V2_LOW, GV2, OV2);
-    // data.setParameters(V_HIGH, GVH, OVH);
-
-    // data.setParameters(I1_LOW, GI1, OI1);
-    // data.setParameters(I2_LOW, GI2, OI2);
-    // data.setParameters(I_HIGH, GIH, OIH);
-
     spin.gpio.setPin(LEG1_CAPA_DGND);
     spin.gpio.setPin(LEG2_CAPA_DGND);
 
@@ -160,9 +137,6 @@ void setup_routine()
     task.startBackground(AppTask_num);
     task.startBackground(CommTask_num);
     task.startCritical();
-
-    communication.rs485Communication.configure(buffer_tx, buffer_rx, sizeof(ConsigneStruct_t), slave_reception_function, 10625000, true); // custom configuration for RS485
-
 }
 
 //---------------LOOP FUNCTIONS----------------------------------
@@ -299,15 +273,6 @@ void loop_control_task()
         I_high_value = meas_data;
 
 
-    /* Analog communication value */
-    local_analog_value = communication.analogCommunication.getAnalogCommValue();
-
-    ctrl_slave_counter++; //counter for the slave function
-
-    can_test_ctrl_enable = communication.canCommunication.getCtrlEnable();
-    can_test_reference_value = communication.canCommunication.getCtrlReference();
-
-
     switch(mode){
         case IDLE:
         case POWER_OFF:
@@ -318,6 +283,8 @@ void loop_control_task()
             counter = 0;
             V1_max  = 0;
             V2_max  = 0;
+            twist.setLegDeadTime(LEG1, power_leg_settings[LEG1].dead_time_rise, power_leg_settings[LEG1].dead_time_fall);
+            twist.setLegDeadTime(LEG2, power_leg_settings[LEG2].dead_time_rise, power_leg_settings[LEG2].dead_time_fall);
             break;
 
         case POWER_ON:
@@ -329,15 +296,8 @@ void loop_control_task()
             if(pwm_enable_leg_2 && !power_leg_settings[LEG2].settings[BOOL_LEG]) {twist.stopLeg(LEG2); pwm_enable_leg_2 = false;}
 
 
-            //calls the pid calculation if the converter in either in mode buck or boost
-            if(power_leg_settings[LEG1].settings[BOOL_BUCK] || power_leg_settings[LEG1].settings[BOOL_BOOST])
-                power_leg_settings[LEG1].duty_cycle = opalib_control_leg1_pid_calculation(power_leg_settings[LEG1].reference_value , tracking_vars[LEG1].address[0]);
-
-            if(power_leg_settings[LEG2].settings[BOOL_BUCK] || power_leg_settings[LEG2].settings[BOOL_BOOST])
-                power_leg_settings[LEG2].duty_cycle = opalib_control_leg1_pid_calculation(power_leg_settings[LEG2].reference_value , tracking_vars[LEG2].address[0]);
-
             if(power_leg_settings[LEG1].settings[BOOL_LEG]){
-                twist.setLegDeadTime(LEG1, power_leg_settings[LEG1].dead_time_rise, power_leg_settings[LEG1].dead_time_fall);
+
                 if(power_leg_settings[LEG1].settings[BOOL_BOOST]){
                     twist.setLegDutyCycle(LEG1, (1-power_leg_settings[LEG1].duty_cycle) ); //inverses the convention of the leg in case of changing from buck to boost
                 } else {
@@ -346,7 +306,7 @@ void loop_control_task()
             }
 
             if(power_leg_settings[LEG2].settings[BOOL_LEG]){
-                twist.setLegDeadTime(LEG2, power_leg_settings[LEG2].dead_time_rise, power_leg_settings[LEG2].dead_time_fall);
+
                 twist.setLegPhaseShift(LEG2, power_leg_settings[LEG2].phase_shift);
                 if(power_leg_settings[LEG2].settings[BOOL_BOOST]){
                     twist.setLegDutyCycle(LEG2, (1-power_leg_settings[LEG2].duty_cycle) ); //inverses the convention of the leg in case of changing from buck to boost

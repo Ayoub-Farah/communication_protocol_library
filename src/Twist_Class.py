@@ -185,9 +185,9 @@ class Twist_Device:
             "BUCK": lambda leg, state: f"s_{leg.upper()}_b_{state.lower()}",
             "BOOST": lambda leg, state: f"s_{leg.upper()}_t_{state.lower()}",
             "REFERENCE": lambda leg, variable, value: f"s_{leg.upper()}_r_{variable.upper()}_{value:.5f}",
-            "PHASE_SHIFT": lambda leg, value: f"s_{leg.upper()}_p_{value:.5f}",
-            "DEAD_TIME_RISING": lambda leg, value: f"s_{leg.upper()}_dtr_{value:.5f}",
-            "DEAD_TIME_FALLING": lambda leg, value: f"s_{leg.upper()}_dtf_{value:.5f}",
+            "PHASE_SHIFT": lambda leg, value: f"s_{leg.upper()}_p_.{value}",
+            "DEAD_TIME_RISING": lambda leg, value: f"s_{leg.upper()}_x_.{value}",
+            "DEAD_TIME_FALLING": lambda leg, value: f"s_{leg.upper()}_z_.{value}",
             "DUTY": lambda leg, value: f"s_{leg.upper()}_d_{value:.5f}",
             "CALIBRATE": lambda variable, gain, offset: f"k_{variable.upper()}_g_{gain:.8f}_o_{offset:.8f}",
             }

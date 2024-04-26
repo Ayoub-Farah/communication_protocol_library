@@ -69,8 +69,8 @@ cmdToSettings_t power_settings[] = {
     {"_r", referenceHandler},
     {"_d", dutyHandler},
     {"_p", phaseHandler},
-    {"_dtr", deadTimeRiseHandler},
-    {"_dtf", deadTimeFallHandler},
+    {"_x", deadTimeRiseHandler},
+    {"_z", deadTimeFallHandler},
 };
 
 cmdToState_t default_commands[] = {
@@ -201,40 +201,35 @@ void dutyHandler(uint8_t power_leg, uint8_t setting_position) {
 void phaseHandler(uint8_t power_leg, uint8_t setting_position) {
     if (strncmp(bufferstr, "_LEG1_p_", 8) == 0 || strncmp(bufferstr, "_LEG2_p_", 8) == 0) {
         // Extract the phase shift value from the protocol message
-        float32_t phase_shift = atof(bufferstr + 9);
+        uint16_t phase_shift = atof(bufferstr + 9);
         power_leg_settings[power_leg].phase_shift = phase_shift;
+        printk("phase shift = %u\n" ,(uint16_t) phase_shift );
     } else {
         printk("Invalid protocol format: %s\n", bufferstr);
     }
 }
 
 void deadTimeRiseHandler(uint8_t power_leg, uint8_t setting_position) {
-    if (strncmp(bufferstr, "_LEG1_dtr_", 8) == 0 || strncmp(bufferstr, "_LEG2_dtr_", 8) == 0) {
+    if (strncmp(bufferstr, "_LEG1_x_", 8) == 0 || strncmp(bufferstr, "_LEG2_x_", 8) == 0) {
         // Extract the dead time rise value from the protocol message
-        float32_t dead_time_rise = atof(bufferstr + 9);
+        uint16_t dead_time_rise = atof(bufferstr + 9);
 
         // Check if the dead time rise value is not negative
-        if (dead_time_rise < 0) {
-            power_leg_settings[power_leg].dead_time_rise = dead_time_rise;
-        } else {
-            printk("Invalid dead time rise value: %.5f\n", dead_time_rise);
-        }
+        power_leg_settings[power_leg].dead_time_rise = dead_time_rise;
+        printk("dead time = %u\n" , dead_time_rise );
     } else {
         printk("Invalid protocol format: %s\n", bufferstr);
     }
 }
 
 void deadTimeFallHandler(uint8_t power_leg, uint8_t setting_position) {
-    if (strncmp(bufferstr, "_LEG1_dtf_", 8) == 0 || strncmp(bufferstr, "_LEG2_dtf_", 8) == 0) {
+    if (strncmp(bufferstr, "_LEG1_z_", 8) == 0 || strncmp(bufferstr, "_LEG2_z_", 8) == 0) {
         // Extract the dead time fall value from the protocol message
-        float32_t dead_time_fall = atof(bufferstr + 9);
+        uint16_t dead_time_fall = atof(bufferstr + 9);
 
         // Check if the dead time fall value is not negative
-        if (dead_time_fall < 0) {
-            power_leg_settings[power_leg].dead_time_fall = dead_time_fall;
-        } else {
-            printk("Invalid dead time fall value: %.5f\n", dead_time_fall);
-        }
+        power_leg_settings[power_leg].dead_time_fall = dead_time_fall;
+        printk("dead time = %u\n" , dead_time_fall );
     } else {
         printk("Invalid protocol format: %s\n", bufferstr);
     }
